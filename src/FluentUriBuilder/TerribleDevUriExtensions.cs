@@ -8,35 +8,28 @@ namespace System
 {
     public static class TerribleDevUriExtensions
     {
-        public static UriBuilder WithParameter(this UriBuilder bld, string key, string value)
+        public static UriBuilder WithParameter(this UriBuilder bld, string key, params string[] values)
         {
             if(string.IsNullOrWhiteSpace(key))
             {
                 throw new ArgumentNullException(nameof(key));
             }
-            if(string.IsNullOrWhiteSpace(value))
+            if(values == null)
             {
-                throw new ArgumentNullException(nameof(value));
+                values = new string[0];
             }
-            if(!string.IsNullOrWhiteSpace(bld.Query))
-            {
-                bld.Query += $"&{key}={value}";
-                return bld;
-            }
-            bld.Query = $"{key}={value}";
-            return bld;
-        }
-
-        public static UriBuilder WithParameter(this UriBuilder bld, string key, IEnumerable<object> values)
-        {
             var isfirst = string.IsNullOrWhiteSpace(bld.Query);
-            var intitialValue = isfirst ? "?" : $"{bld.Query}& ";
-            var sb = new StringBuilder($"{intitialValue}{key}=");
+            var intitialValue = isfirst ? "?" : $"{bld.Query}&";
+            var sb = new StringBuilder($"{intitialValue}{key}");
+            var validValueHit = false;
             foreach(var value in values)
             {
                 var toSValue = value?.ToString();
                 if(string.IsNullOrWhiteSpace(toSValue)) continue;
-                sb.Append($"{value},");
+                // we can't just have an = sign since its valid to have query string paramters with no value;
+                if(!validValueHit) toSValue = "=" + value;
+                validValueHit = true;
+                sb.Append($"{toSValue},");
             }
             bld.Query = sb.ToString().TrimEnd(',');
             return bld;
@@ -51,6 +44,10 @@ namespace System
 
         public static UriBuilder WithPathSegment(this UriBuilder bld, string pathSegment)
         {
+            if(string.IsNullOrWhiteSpace(pathSegment))
+            {
+                throw new ArgumentNullException(nameof(pathSegment));
+            }
             var path = pathSegment.TrimStart('/');
             if(string.IsNullOrWhiteSpace(bld.Path))
             {
@@ -77,7 +74,7 @@ namespace System
 
         public static UriBuilder UseHttps(this UriBuilder bld, bool predicate = true)
         {
-            if(predicate) bld.Scheme = "https";
+            bld.Scheme = predicate ? "https" : "http";
             return bld;
         }
     }
