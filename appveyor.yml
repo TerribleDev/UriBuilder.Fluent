@@ -1,5 +1,20 @@
-version: 1.0.{build}
+configuration: Release
+version: 0.1.{build}
+nuget:
+  account_feed: true
+  project_feed: true
+  
+init:
+  - git config --global core.autocrlf true
+  
 before_build:
-- ps: nuget restore
-build:
-  verbosity: minimal
+- ps: invoke-webrequest https://go.microsoft.com/fwlink/?LinkID=827524 -OutFile core.exe
+- ps: .\core.exe /install /quiet /norestart
+- ps: dotnet restore
+
+build_script:
+- ps: dotnet build -c Release .\src\FluentUriBuilder
+- ps: dotnet build -c Release .\src\FluentUriBuilder.Tests
+
+test_script:
+- ps: dotnet test -c Release .\src\FluentUriBuilder.Tests
