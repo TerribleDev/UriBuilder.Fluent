@@ -14,6 +14,7 @@ before_build:
 
 build_script:
 - ps: dotnet build -c Release .\src\FluentUriBuilder
+- ps: dotnet pack -c Release .\src\FluentUriBuilder
 - ps: dotnet build -c Release .\src\FluentUriBuilder.Tests
 
 test_script:
