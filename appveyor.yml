@@ -4,7 +4,7 @@ nuget:
   account_feed: true
   project_feed: true
 artifacts:
-  - path: **\*.nupkg
+  - path: '**\*.nupkg'
   
 init:
   - git config --global core.autocrlf true
