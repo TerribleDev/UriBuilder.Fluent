@@ -13,9 +13,10 @@ new UriBuilder()
          .UseHttps()
          .ToString()
 
-result: https://awesome.com/seg?awesome=yodawg&fun=cool,yay
+
 
 ```
+result: `https://awesome.com/seg?awesome=yodawg&fun=cool,yay`
 
 or 
 
@@ -25,6 +26,7 @@ new UriBuilder("https://awesome.com/yo)
     .WithParameter("id", "5")
     .ToString();
 
-result: https://awesome.com/yo?id=5 
+
 
 ```
+result: `https://awesome.com/yo?id=5`
