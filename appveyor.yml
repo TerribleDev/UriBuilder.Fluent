@@ -12,6 +12,7 @@ init:
 before_build:
 - ps: invoke-webrequest https://go.microsoft.com/fwlink/?LinkID=827524 -OutFile core.exe
 - ps: .\core.exe /install /quiet /norestart
+- ps: .\update-projectjson.ps1
 - ps: dotnet restore
 
 build_script:
@@ -21,3 +22,4 @@ build_script:
 
 test_script:
 - ps: dotnet test -c Release .\src\UriBuilder.Fluent.UnitTests
+- ps: .\Coverage.ps1

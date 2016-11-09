@@ -21,7 +21,7 @@ namespace System
                 valuesEnum = new string[0];
             }
             var isfirst = string.IsNullOrWhiteSpace(bld.Query);
-            var intitialValue = isfirst ? "?" : $"{bld.Query}&";
+            var intitialValue = isfirst ? "" : $"{bld.Query.TrimStart('?')}&";
             var sb = new StringBuilder($"{intitialValue}{key}");
             var validValueHit = false;
             foreach(var value in valuesEnum)
