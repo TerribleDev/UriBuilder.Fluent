@@ -21,7 +21,7 @@
       "Tommy Parnell"
   ],
   "frameworks": {
-    "netstandard1.3": {
+    "netstandard1.1": {
       "imports": "dnxcore50"
     }
   }
