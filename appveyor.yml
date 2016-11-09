@@ -12,13 +12,15 @@ init:
 before_build:
 - ps: invoke-webrequest https://go.microsoft.com/fwlink/?LinkID=827524 -OutFile core.exe
 - ps: .\core.exe /install /quiet /norestart
-- ps: .\update-projectjson.ps1
-- ps: dotnet restore
 
 build_script:
+- ps: dotnet restore
 - ps: dotnet build -c Release .\src\UriBuilder.Fluent
-- ps: dotnet pack -c Release .\src\UriBuilder.Fluent
 - ps: dotnet build -c Release .\src\UriBuilder.Fluent.UnitTests
+- ps: .\update-projectjson.ps1
+- ps: dotnet restore
+- ps: dotnet pack -c Release .\src\UriBuilder.Fluent
+
 
 test_script:
 - ps: dotnet test -c Release .\src\UriBuilder.Fluent.UnitTests

@@ -1,6 +1,21 @@
 ﻿{
   "version": "1.0.0-*",
-
+  "packOptions": {
+      "owners": [
+          "Tommy Parnell"
+      ],
+      "repository": {
+          "url":"https://github.com/TerribleDev/UriBuilder.Fluent"
+      },
+      "summary": "Fluent extensions for UriBuilder",
+      "tags": [
+          "Url building",
+          "Uri",
+          "Uri building",
+          "fluent",
+          "extension"
+      ]
+  },
   "dependencies": {
     "NETStandard.Library": "1.6.0"
   },
