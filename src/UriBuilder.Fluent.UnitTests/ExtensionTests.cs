@@ -48,7 +48,7 @@ namespace FluentUriBuilder.Tests
         public void TestAddParameterArrayint()
         {
             var url = new UriBuilder("http://awesome.com")
-                    .WithParameter("awesome", new List<int>() { 1, 2 }.Cast<Object>());
+                    .WithParameter("awesome", new List<int>() { 1, 2 }.Cast<object>());
             Assert.Equal("http://awesome.com/?awesome=1,2", url.Uri.ToString());
         }
 

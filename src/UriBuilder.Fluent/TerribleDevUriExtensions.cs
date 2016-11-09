@@ -8,23 +8,23 @@ namespace System
 {
     public static class TerribleDevUriExtensions
     {
-        public static UriBuilder WithParameter(this UriBuilder bld, string key, params string[] values) => bld.WithParameter(key, values);
+        public static UriBuilder WithParameter(this UriBuilder bld, string key, params string[] values) => bld.WithParameter(key, valuesEnum: values);
 
-        public static UriBuilder WithParameter(this UriBuilder bld, string key, IEnumerable<object> values)
+        public static UriBuilder WithParameter(this UriBuilder bld, string key, IEnumerable<object> valuesEnum)
         {
             if(string.IsNullOrWhiteSpace(key))
             {
                 throw new ArgumentNullException(nameof(key));
             }
-            if(values == null)
+            if(valuesEnum == null)
             {
-                values = new string[0];
+                valuesEnum = new string[0];
             }
             var isfirst = string.IsNullOrWhiteSpace(bld.Query);
             var intitialValue = isfirst ? "?" : $"{bld.Query}&";
             var sb = new StringBuilder($"{intitialValue}{key}");
             var validValueHit = false;
-            foreach(var value in values)
+            foreach(var value in valuesEnum)
             {
                 var toSValue = value?.ToString();
                 if(string.IsNullOrWhiteSpace(toSValue)) continue;
