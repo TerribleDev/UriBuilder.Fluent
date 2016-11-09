@@ -2,7 +2,7 @@ $projectJsonFileLocation = "src/UriBuilder.Fluent/project.json"
 $newVersion = $env:APPVEYOR_REPO_TAG_NAME
 if($newVersion -eq $null)
 {
- $newVersion = "${env:APPVEYOR_BUILD_VERSION}-autobuild"
+ $newVersion = "1.0.0-${env:APPVEYOR_BUILD_NUMBER}"
 }
 if($newVersion -eq $null)
 {
