@@ -1,3 +1,8 @@
+if($env:APPVEYOR_REPO_TAG -eq "true") 
+{
+    "do not publish coverall data on tag builds"
+    return
+}
 nuget install OpenCover -Version 4.6.519 -OutputDirectory tools
 nuget install coveralls.net -Version 0.7.0 -OutputDirectory tools
 
