@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B4EB6F69-0F56-4875-95AD-E4DEB5D18A74}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AC680F4D-C1B2-4F06-8464-CC987B1F0008}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "UriBuilder.Fluent", "src\UriBuilder.Fluent\UriBuilder.Fluent.xproj", "{B8458F59-DEBD-4844-AA29-EE3B4388AA7A}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "UriBuilder.Fluent.UnitTests", "src\UriBuilder.Fluent.UnitTests\UriBuilder.Fluent.UnitTests.xproj", "{F421A9EE-180C-413E-A0CD-665295825646}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B8458F59-DEBD-4844-AA29-EE3B4388AA7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8458F59-DEBD-4844-AA29-EE3B4388AA7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8458F59-DEBD-4844-AA29-EE3B4388AA7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8458F59-DEBD-4844-AA29-EE3B4388AA7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F421A9EE-180C-413E-A0CD-665295825646}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F421A9EE-180C-413E-A0CD-665295825646}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F421A9EE-180C-413E-A0CD-665295825646}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F421A9EE-180C-413E-A0CD-665295825646}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B8458F59-DEBD-4844-AA29-EE3B4388AA7A} = {B4EB6F69-0F56-4875-95AD-E4DEB5D18A74}
+		{F421A9EE-180C-413E-A0CD-665295825646} = {B4EB6F69-0F56-4875-95AD-E4DEB5D18A74}
+	EndGlobalSection
+EndGlobal

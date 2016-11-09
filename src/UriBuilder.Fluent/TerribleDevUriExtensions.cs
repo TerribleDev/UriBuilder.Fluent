@@ -8,7 +8,9 @@ namespace System
 {
     public static class TerribleDevUriExtensions
     {
-        public static UriBuilder WithParameter(this UriBuilder bld, string key, params string[] values)
+        public static UriBuilder WithParameter(this UriBuilder bld, string key, params string[] values) => bld.WithParameter(key, values);
+
+        public static UriBuilder WithParameter(this UriBuilder bld, string key, IEnumerable<object> values)
         {
             if(string.IsNullOrWhiteSpace(key))
             {

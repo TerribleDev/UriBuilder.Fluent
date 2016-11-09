@@ -6,8 +6,8 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>ecaca676-2599-4fa5-8e25-7503f0ccca78</ProjectGuid>
-    <RootNamespace>FluentUriBuilder.Tests</RootNamespace>
+    <ProjectGuid>f421a9ee-180c-413e-a0cd-665295825646</ProjectGuid>
+    <RootNamespace>UriBuilder.Fluent.UnitTests</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">.\obj</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>

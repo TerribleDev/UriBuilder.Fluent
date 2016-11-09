@@ -1,5 +1,5 @@
 configuration: Release
-version: 0.1.{build}
+version: 1.0.{build}
 nuget:
   account_feed: true
   project_feed: true
@@ -15,9 +15,9 @@ before_build:
 - ps: dotnet restore
 
 build_script:
-- ps: dotnet build -c Release .\src\FluentUriBuilder
-- ps: dotnet pack -c Release .\src\FluentUriBuilder
-- ps: dotnet build -c Release .\src\FluentUriBuilder.Tests
+- ps: dotnet build -c Release .\src\UriBuilder.Fluent
+- ps: dotnet pack -c Release .\src\UriBuilder.Fluent
+- ps: dotnet build -c Release .\src\UriBuilder.Fluent.UnitTests
 
 test_script:
-- ps: dotnet test -c Release .\src\FluentUriBuilder.Tests
+- ps: dotnet test -c Release .\src\UriBuilder.Fluent.UnitTests
