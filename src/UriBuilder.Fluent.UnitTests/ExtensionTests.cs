@@ -98,6 +98,15 @@ namespace FluentUriBuilder.Tests
         }
 
         [Fact]
+        public void AddParamWithNoValue()
+        {
+            var url = new UriBuilder("http://awesome.com")
+                    .WithParameter("awesome", "yodawg")
+                    .WithParameter("fun", null);
+            Assert.Equal("http://awesome.com/?awesome=yodawg&fun", url.Uri.ToString());
+        }
+
+        [Fact]
         public void TestAddTwoUrlParameters()
         {
             var url = new UriBuilder("http://awesome.com")
