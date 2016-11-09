@@ -102,8 +102,9 @@ namespace FluentUriBuilder.Tests
         {
             var url = new UriBuilder("http://awesome.com")
                     .WithParameter("awesome", "yodawg")
-                    .WithParameter("fun", null);
-            Assert.Equal("http://awesome.com/?awesome=yodawg&fun", url.Uri.ToString());
+                    .WithParameter("fun", null)
+                    .WithParameter("cool", string.Empty);
+            Assert.Equal("http://awesome.com/?awesome=yodawg&fun&cool", url.Uri.ToString());
         }
 
         [Fact]

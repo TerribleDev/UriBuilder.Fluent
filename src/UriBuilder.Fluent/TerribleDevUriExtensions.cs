@@ -51,11 +51,6 @@ namespace System
                 throw new ArgumentNullException(nameof(pathSegment));
             }
             var path = pathSegment.TrimStart('/');
-            if(string.IsNullOrWhiteSpace(bld.Path))
-            {
-                bld.Path = path;
-                return bld;
-            }
             bld.Path = $"{bld.Path.TrimEnd('/')}/{path}";
             return bld;
         }

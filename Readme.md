@@ -29,7 +29,9 @@ new UriBuilder("https://awesome.com/yo)
     .WithParameter("id", "5")
     .ToString();
 
-
-
 ```
 result: `https://awesome.com/yo?id=5`
+
+## Getting started
+
+Just install the nuget package `install-package UriBuilder.Fluent` and thats it. The extension methods should be avalbile to you!
