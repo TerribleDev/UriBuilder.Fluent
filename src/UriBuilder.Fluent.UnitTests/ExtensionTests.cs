@@ -116,5 +116,15 @@ namespace FluentUriBuilder.Tests
                     .WithParameter("supgf", "no22");
             Assert.Equal("http://awesome.com/?awesome=yodawg&supg=no2&supgf=no22", url.Uri.ToString());
         }
+        [Fact]
+        public void TestSerializedParameters()
+        {
+            var url = new UriBuilder("http://awesome.com")
+                        .WithSerializedObject(new {yo="dawg"});
+            Assert.Equal("http://awesome.com/?yo=dawg", url.Uri.ToString());
+            url = new UriBuilder("http://awesome.com")
+                        .WithSerializedObject(new {yo=""});
+            Assert.Equal("http://awesome.com/?yo", url.Uri.ToString());  
+        }
     }
 }

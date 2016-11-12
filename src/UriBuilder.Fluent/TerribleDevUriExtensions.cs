@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,6 +10,8 @@ namespace System
     public static class TerribleDevUriExtensions
     {
         public static UriBuilder WithParameter(this UriBuilder bld, string key, params string[] values) => bld.WithParameter(key, valuesEnum: values);
+
+        public static UriBuilder WithParameter(this UriBuilder bld, string key, object value) => bld.WithParameter(key, new object[1] { value });
 
         public static UriBuilder WithParameter(this UriBuilder bld, string key, IEnumerable<object> valuesEnum)
         {
@@ -74,5 +77,20 @@ namespace System
             bld.Scheme = predicate ? "https" : "http";
             return bld;
         }
+
+#if netstandard15
+
+        public static UriBuilder WithSerializedObject(this UriBuilder bld, object serialize)
+        {
+            var types = serialize.GetType().GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty);
+            foreach(var type in types)
+            {
+                bld.WithParameter(type.Name, type.GetValue(serialize, null));
+            }
+
+            return bld;
+        }
+
+#endif
     }
 }

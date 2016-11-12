@@ -1,30 +1,37 @@
 ﻿{
   "version": "1.0.0-*",
   "packOptions": {
-      "owners": [
-          "Tommy Parnell"
-      ],
-      "repository": {
-          "url":"https://github.com/TerribleDev/UriBuilder.Fluent"
-      },
-      "summary": "Fluent extensions for UriBuilder",
-      "tags": [
-          "Url building",
-          "Uri",
-          "Uri building",
-          "fluent",
-          "extension"
-      ]
+    "owners": [
+      "Tommy Parnell"
+    ],
+    "repository": {
+      "url": "https://github.com/TerribleDev/UriBuilder.Fluent"
+    },
+    "summary": "Fluent extensions for UriBuilder",
+    "tags": [
+      "Url building",
+      "Uri",
+      "Uri building",
+      "fluent",
+      "extension"
+    ]
   },
   "dependencies": {
     "NETStandard.Library": "1.6.0"
   },
   "authors": [
-      "Tommy Parnell"
+    "Tommy Parnell"
   ],
   "frameworks": {
     "netstandard1.3": {
-      "imports": "dnxcore50"
+      "buildOptions": {
+        "define": [ "netstandard13" ]
+      }
+    },
+    "netstandard1.5": {
+      "buildOptions": {
+        "define": [ "netstandard15" ]
+      }
     }
   }
 }
