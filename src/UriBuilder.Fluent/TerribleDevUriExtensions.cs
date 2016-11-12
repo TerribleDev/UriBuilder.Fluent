@@ -22,6 +22,7 @@ namespace System
         /// </summary>
         /// <param name="bld"></param>
         /// <param name="parameterDictionary"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
         public static UriBuilder WithParameter(this UriBuilder bld, IDictionary<string, string> parameterDictionary)
         {
