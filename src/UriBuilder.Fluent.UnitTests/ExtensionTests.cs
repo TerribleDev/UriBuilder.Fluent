@@ -116,5 +116,19 @@ namespace FluentUriBuilder.Tests
                     .WithParameter("supgf", "no22");
             Assert.Equal("http://awesome.com/?awesome=yodawg&supg=no2&supgf=no22", url.Uri.ToString());
         }
+
+        [Fact]
+        public void AddDictOfParams()
+        {
+            var dictionary = new Dictionary<string, string>()
+            {
+                ["yo"] = "dawg",
+                ["troll"] = "toll",
+                ["hammer"] = string.Empty
+            };
+            var url = new UriBuilder("http://awesome.com")
+                    .WithParameter(dictionary);
+            Assert.Equal("http://awesome.com/?yo=dawg&troll=toll&hammer", url.Uri.ToString());
+        }
     }
 }
