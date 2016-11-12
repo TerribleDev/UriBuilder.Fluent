@@ -32,6 +32,19 @@ new UriBuilder("https://awesome.com/yo)
 ```
 result: `https://awesome.com/yo?id=5`
 
+you can even pass a dictionary of parameters
+
+```csharp
+            var dictionary = new Dictionary<string, string>()
+            {
+                ["yo"] = "dawg"
+            };
+            new UriBuilder("http://awesome.com")
+                    .WithParameter(dictionary);
+            http://awesome.com/?yo=dawg
+
+```
+
 ## Getting started
 
 Just install the nuget package `install-package UriBuilder.Fluent` and thats it. The extension methods should be available to you!
