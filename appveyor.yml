@@ -12,6 +12,8 @@ init:
 before_build:
 - ps: invoke-webrequest https://go.microsoft.com/fwlink/?LinkID=827524 -OutFile core.exe
 - ps: .\core.exe /install /quiet /norestart
+- ps: iwr -Uri https://download.microsoft.com/download/E/F/D/EFD52638-B804-4865-BB57-47F4B9C80269/NDP462-DevPack-KB3151934-ENU.exe -OutFile net452.exe
+- ps: start-process .\net452.exe -Wait '/install /quiet /norestart'
 
 build_script:
 - ps: dotnet restore
