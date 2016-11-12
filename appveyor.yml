@@ -22,7 +22,6 @@ build_script:
 
 
 test_script:
-- ps: dotnet test -c Release .\src\UriBuilder.Fluent.UnitTests
 - ps: .\Coverage.ps1
 - ps: .\update-projectjson.ps1
 - ps: dotnet restore
