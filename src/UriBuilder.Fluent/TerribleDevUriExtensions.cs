@@ -18,6 +18,22 @@ namespace System
         public static UriBuilder WithParameter(this UriBuilder bld, string key, params string[] values) => bld.WithParameter(key, valuesEnum: values);
 
         /// <summary>
+        /// Appends query strings from dictionary
+        /// </summary>
+        /// <param name="bld"></param>
+        /// <param name="parameterDictionary"></param>
+        /// <returns></returns>
+        public static UriBuilder WithParameter(this UriBuilder bld, IDictionary<string, string> parameterDictionary)
+        {
+            if(parameterDictionary == null) throw new ArgumentNullException(nameof(parameterDictionary));
+            foreach(var item in parameterDictionary)
+            {
+                bld.WithParameter(item.Key, item.Value);
+            }
+            return bld;
+        }
+
+        /// <summary>
         /// Appends a query string parameter with a key, and many values. Multiple values will be comma seperated. If only 1 value is passed and its null or value, the key will be added to the QS.
         /// </summary>
         /// <param name="bld"></param>
