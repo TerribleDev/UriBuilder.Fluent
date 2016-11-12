@@ -17,8 +17,8 @@ before_build:
 
 build_script:
 - ps: dotnet restore
-- ps: dotnet build -c Release .\src\UriBuilder.Fluent
-- ps: dotnet build -c Release .\src\UriBuilder.Fluent.UnitTests
+- ps: dotnet publish -c Release .\src\UriBuilder.Fluent
+- ps: dotnet publish -c Release .\src\UriBuilder.Fluent.UnitTests
 
 
 test_script:
