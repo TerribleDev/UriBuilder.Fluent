@@ -126,5 +126,19 @@ namespace FluentUriBuilder.Tests
                         .WithSerializedObject(new {yo=""});
             Assert.Equal("http://awesome.com/?yo", url.Uri.ToString());  
         }
+
+        [Fact]
+        public void AddDictOfParams()
+        {
+            var dictionary = new Dictionary<string, string>()
+            {
+                ["yo"] = "dawg",
+                ["troll"] = "toll",
+                ["hammer"] = string.Empty
+            };
+            var url = new UriBuilder("http://awesome.com")
+                    .WithParameter(dictionary);
+            Assert.Equal("http://awesome.com/?yo=dawg&troll=toll&hammer", url.Uri.ToString());
+        }
     }
 }
