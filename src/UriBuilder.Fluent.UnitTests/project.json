@@ -9,7 +9,8 @@
   },
 
   "frameworks": {
-    "net462": {},
+    "net462": {
+    },
     "netcoreapp1.0": {
       "dependencies": {
         "Microsoft.NETCore.App": {

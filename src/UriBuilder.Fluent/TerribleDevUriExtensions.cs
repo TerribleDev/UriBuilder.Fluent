@@ -78,7 +78,7 @@ namespace System
             return bld;
         }
 
-#if netstandard15
+#if (netstandard15)
 
         public static UriBuilder WithSerializedObject(this UriBuilder bld, object serialize)
         {

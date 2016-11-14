@@ -16,9 +16,6 @@
       "extension"
     ]
   },
-  "dependencies": {
-    "NETStandard.Library": "1.6.0"
-  },
   "authors": [
     "Tommy Parnell"
   ],
@@ -26,11 +23,25 @@
     "netstandard1.3": {
       "buildOptions": {
         "define": [ "netstandard13" ]
-      }
+      },
+       "dependencies": {
+           "NETStandard.Library": "1.6.0"
+        }
     },
     "netstandard1.5": {
+       "dependencies": {
+           "NETStandard.Library": "1.6.0"
+        },
       "buildOptions": {
         "define": [ "netstandard15" ]
+      }
+    },
+    "net45":{
+    "buildOptions": {
+        "define": [ "netstandard15" ]
+      },
+      "frameworkAssemblies": {
+          "System.Runtime":"4.0.0"
       }
     }
   }
