@@ -57,7 +57,8 @@ namespace System
             foreach(var value in valuesEnum)
             {
                 var toSValue = value?.ToString();
-                if(string.IsNullOrWhiteSpace(toSValue)) continue;
+                //whitespace is valid
+                if(string.IsNullOrEmpty(toSValue)) continue;
                 // we can't just have an = sign since its valid to have query string paramters with no value;
                 if(!validValueHit) toSValue = "=" + value;
                 validValueHit = true;
@@ -118,7 +119,7 @@ namespace System
         /// </summary>
         /// <param name="bld"></param>
         /// <param name="host"></param>
-        /// <exception cref="ArgumentNullException">You must pass a ho0st</exception>
+        /// <exception cref="ArgumentNullException">You must pass a host</exception>
         /// <returns></returns>
         public static UriBuilder WithHost(this UriBuilder bld, string host)
         {
@@ -138,5 +139,7 @@ namespace System
             bld.Scheme = predicate ? "https" : "http";
             return bld;
         }
+        public static string ToEscapedString(this Uri bld) => Uri.EscapeUriString(bld.ToString());
+        public static string ToEscapedString(this UriBuilder bld) => Uri.EscapeUriString(bld.Uri.ToString());
     }
 }
