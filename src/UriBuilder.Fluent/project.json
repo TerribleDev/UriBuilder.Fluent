@@ -14,14 +14,17 @@
           "extension"
       ]
   },
-  "dependencies": {
-    "NETStandard.Library": "1.6.0"
-  },
   "authors": [
       "Tommy Parnell"
   ],
   "frameworks": {
     "netstandard1.1": {
+      "imports": "dnxcore50",
+        "dependencies": {
+         "NETStandard.Library": "1.6.0"
+        }
+    },
+    "net40": {
       "imports": "dnxcore50"
     }
   }
