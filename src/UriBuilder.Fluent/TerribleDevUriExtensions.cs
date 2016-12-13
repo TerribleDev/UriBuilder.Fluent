@@ -127,6 +127,11 @@ namespace System
             return bld;
         }
 
+        public static string PathAndQuery(this UriBuilder bld)
+        {
+            return bld.Path + bld.Query;
+        }
+
         /// <summary>
         /// Use Https?
         /// </summary>

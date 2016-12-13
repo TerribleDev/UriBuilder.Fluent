@@ -35,6 +35,17 @@ namespace FluentUriBuilder.Tests
                     .WithParameter("awesome", "yodawg");
             Assert.Equal("http://awesome.com/?awesome=yodawg", url.Uri.ToString());
         }
+        
+        [Fact]
+        public void PathAndQuery()
+        {
+            var url = new UriBuilder().WithPathSegment("/awesome/v1/").WithParameter("awesome", "cool").PathAndQuery();
+            Assert.Equal("/awesome/v1/?awesome=cool", url);
+            url = new UriBuilder().WithPathSegment("/awesome/v1").WithParameter("awesome", "cool").PathAndQuery();
+            Assert.Equal("/awesome/v1?awesome=cool", url);
+            url = new UriBuilder().WithPathSegment("/awesome/v1").PathAndQuery();
+            Assert.Equal("/awesome/v1", url);
+        }
 
         [Fact]
         public void TestAddParameterArray()
