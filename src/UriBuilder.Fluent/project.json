@@ -26,6 +26,7 @@
     },
     "net40": {
       "imports": "dnxcore50"
-    }
+    },
+    "net45":{}
   }
 }
