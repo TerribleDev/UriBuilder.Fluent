@@ -143,5 +143,25 @@ namespace System
             bld.Scheme = predicate ? "https" : "http";
             return bld;
         }
+
+        /// <summary>
+        /// Escape Url query string
+        /// </summary>
+        /// <param name="bld"></param>
+        /// <returns></returns>
+        public static string ToEscapeString(this UriBuilder bld) 
+        {
+            return Uri.EscapeUriString(bld.Uri.ToString());
+        }
+
+        /// <summary>
+        /// Escape the whole Url string
+        /// </summary>
+        /// <param name="bld"></param>
+        /// <returns></returns>
+        public static string ToEscapeDataString(this UriBuilder bld)
+        {
+            return Uri.EscapeDataString(bld.Uri.ToString());
+        }
     }
 }
