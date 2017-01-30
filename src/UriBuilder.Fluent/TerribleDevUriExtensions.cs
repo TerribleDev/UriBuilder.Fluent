@@ -127,10 +127,7 @@ namespace System
             return bld;
         }
 
-        public static string PathAndQuery(this UriBuilder bld)
-        {
-            return bld.Path + bld.Query;
-        }
+        public static string PathAndQuery(this UriBuilder bld) => (bld.Path + bld.Query);
 
         /// <summary>
         /// Use Https?
@@ -143,5 +140,20 @@ namespace System
             bld.Scheme = predicate ? "https" : "http";
             return bld;
         }
+
+        /// <summary>
+        /// Escape Url query string
+        /// </summary>
+        /// <param name="bld"></param>
+        /// <returns></returns>
+        public static string ToEscapeString(this UriBuilder bld) => Uri.EscapeUriString(bld.Uri.ToString());
+
+        /// <summary>
+        /// Escape the whole Url string
+        /// </summary>
+        /// <param name="bld"></param>
+        /// <returns></returns>
+        public static string ToEscapeDataString(this UriBuilder bld) => Uri.EscapeDataString(bld.Uri.ToString());
+
     }
 }

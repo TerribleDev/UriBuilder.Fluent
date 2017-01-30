@@ -141,5 +141,21 @@ namespace FluentUriBuilder.Tests
                     .WithParameter(dictionary);
             Assert.Equal("http://awesome.com/?yo=dawg&troll=toll&hammer", url.Uri.ToString());
         }
+
+        [Fact]
+        public void TestToEscapedString()
+        {
+            var url = new UriBuilder("http://awesome.com")
+                    .WithParameter("yo","dawg<");
+            Assert.Equal("http://awesome.com/?yo=dawg%3C", url.ToEscapeString());
+        }
+        
+        [Fact]
+        public void TestToEscapedDataString()
+        {
+            var url = new UriBuilder("http://awesome.com")
+                    .WithParameter("yo","dawg<");
+            Assert.Equal("http%3A%2F%2Fawesome.com%2F%3Fyo%3Ddawg%3C", url.ToEscapeDataString());
+        }
     }
 }
