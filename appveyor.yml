@@ -10,7 +10,7 @@ init:
 build_script:
 - ps: >-
     dotnet restore UriBuilder.Fluent.sln --source https://api.nuget.org/v3/index.json
-        dotnet build UriBuilder.Fluent.sln
+        dotnet build UriBuilder.Fluent.sln --configuration Release
         if($env:APPVEYOR_REPO_TAG -eq "true")
         {
           dotnet pack src\UriBuilder.Fluent\UriBuilder.Fluent.csproj --configuration Release --output ..\..\output /p:Version=$env:APPVEYOR_REPO_TAG_NAME
