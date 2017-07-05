@@ -4,8 +4,6 @@
     <TargetFrameworks>net461;netcoreapp1.0</TargetFrameworks>
     <AssemblyName>UriBuilder.Fluent.UnitTests</AssemblyName>
     <PackageId>UriBuilder.Fluent.UnitTests</PackageId>
-    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
-    <RuntimeFrameworkVersion Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">1.0.4</RuntimeFrameworkVersion>
   </PropertyGroup>
 
   <ItemGroup>
