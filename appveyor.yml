@@ -2,7 +2,7 @@ image: Visual Studio 2017
 configuration: Release
 version: 1.0.{build}
 artifacts:
-  - path: 'src\**\*.nupkg'
+- path: output\**.nupkg
   
 init:
   - git config --global core.autocrlf true
@@ -13,11 +13,11 @@ before_build:
 
 build_script:
 - ps: >-
-    dotnet restore HardHat.sln --source https://api.nuget.org/v3/index.json
-        dotnet build HardHat.sln
+    dotnet restore UriBuilder.Fluent.sln --source https://api.nuget.org/v3/index.json
+        dotnet build UriBuilder.Fluent.sln
         if($env:APPVEYOR_REPO_TAG -eq "true")
         {
-          dotnet pack src\HardHat\HardHat.csproj --configuration Release --output ..\..\output /p:Version=$env:APPVEYOR_REPO_TAG_NAME
+          dotnet pack src\UriBuilder.Fluent\UriBuilder.Fluent.csproj --configuration Release --output ..\..\output /p:Version=$env:APPVEYOR_REPO_TAG_NAME
         }
 
 
