@@ -19,7 +19,6 @@ build_script:
 
 test_script:
 - ps: dotnet test -c Release .\src\UriBuilder.Fluent.UnitTests\UriBuilder.Fluent.UnitTests.csproj
-- ps: .\Coverage.ps1
 
 deploy:
 - provider: NuGet
