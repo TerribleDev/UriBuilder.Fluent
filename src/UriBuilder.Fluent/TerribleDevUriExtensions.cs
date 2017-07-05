@@ -82,6 +82,17 @@ namespace System
         }
 
         /// <summary>
+        /// Removes the port number for default ports
+        /// </summary>
+        /// <param name="bld"></param>
+        /// <returns></returns>
+        public static UriBuilder WithoutDefaultPort(this UriBuilder bld)
+        {
+            if (bld.Uri.IsDefaultPort) bld.Port = -1;
+            return bld;
+        }
+
+        /// <summary>
         /// appends a path segment to the path. Can be called multiple times to append multiple segments
         /// </summary>
         /// <param name="bld"></param>

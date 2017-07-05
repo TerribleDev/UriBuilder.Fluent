@@ -79,6 +79,22 @@ namespace FluentUriBuilder.Tests
         }
 
         [Fact]
+        public void WithoutDefaultPort()
+        {
+            var url = new UriBuilder("http://awesome.com:80")
+                .WithoutDefaultPort();
+            Assert.Equal("http://awesome.com", url.Uri.ToString());
+
+            url = new UriBuilder("http://awesome.com:443")
+                .WithoutDefaultPort();
+            Assert.Equal("http://awesome.com:443", url.Uri.ToString());
+
+            url = new UriBuilder("https://awesome.com:443")
+                .WithoutDefaultPort();
+            Assert.Equal("https://awesome.com", url.Uri.ToString());
+        }
+
+        [Fact]
         public void WithHttps()
         {
             var url = new UriBuilder().UseHttps(true);
