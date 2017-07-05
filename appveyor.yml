@@ -18,7 +18,9 @@ build_script:
 
 
 test_script:
-- ps: dotnet test -c Release .\src\UriBuilder.Fluent.UnitTests\UriBuilder.Fluent.UnitTests.csproj
+- ps: dotnet clean
+- ps: dotnet build /p:DebugType=full
+- ps: dotnet test .\src\UriBuilder.Fluent.UnitTests\UriBuilder.Fluent.UnitTests.csproj --no-build
 - ps: .\Coverage.ps1
 
 deploy:

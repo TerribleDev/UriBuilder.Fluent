@@ -7,9 +7,6 @@
     <PackageId>UriBuilder.Fluent</PackageId>
     <PackageTags>Url building;Uri;Uri building;fluent;extension</PackageTags>
     <PackageProjectUrl>https://github.com/TerribleDev/UriBuilder.Fluent</PackageProjectUrl>
-    <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netstandard1.1' ">$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
-    <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.1' ">1.6.0</NetStandardImplicitPackageVersion>
-    <PackageTargetFallback Condition=" '$(TargetFramework)' == 'net40' ">$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
