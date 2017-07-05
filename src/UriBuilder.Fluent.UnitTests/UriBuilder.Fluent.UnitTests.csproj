@@ -4,6 +4,7 @@
     <TargetFrameworks>net461;netcoreapp1.0</TargetFrameworks>
     <AssemblyName>UriBuilder.Fluent.UnitTests</AssemblyName>
     <PackageId>UriBuilder.Fluent.UnitTests</PackageId>
+    <DebugType>full</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
