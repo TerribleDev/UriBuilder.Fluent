@@ -1,8 +1,6 @@
+image: Visual Studio 2017
 configuration: Release
 version: 1.0.{build}
-nuget:
-  account_feed: true
-  project_feed: true
 artifacts:
   - path: 'src\**\*.nupkg'
   
@@ -14,17 +12,18 @@ before_build:
 - ps: .\core.exe /install /quiet /norestart
 
 build_script:
-- ps: dotnet restore
-- ps: dotnet build -c Release .\src\UriBuilder.Fluent
-- ps: dotnet build -c Release .\src\UriBuilder.Fluent.UnitTests
+- ps: >-
+    dotnet restore HardHat.sln --source https://api.nuget.org/v3/index.json
+        dotnet build HardHat.sln
+        if($env:APPVEYOR_REPO_TAG -eq "true")
+        {
+          dotnet pack src\HardHat\HardHat.csproj --configuration Release --output ..\..\output /p:Version=$env:APPVEYOR_REPO_TAG_NAME
+        }
 
 
 test_script:
-- ps: dotnet test -c Release .\src\UriBuilder.Fluent.UnitTests
+- ps: dotnet test -c Release .\src\UriBuilder.Fluent.UnitTests\UriBuilder.Fluent.UnitTests.csproj
 - ps: .\Coverage.ps1
-- ps: .\update-projectjson.ps1
-- ps: dotnet restore
-- ps: dotnet pack -c Release .\src\UriBuilder.Fluent
 
 deploy:
 - provider: NuGet
