@@ -19,6 +19,7 @@ new UriBuilder()
          .WithHost("awesome.com")
          .WithPathSegment("seg")
          .UseHttps()
+         .Uri
          .ToString()
 
 ```
@@ -30,6 +31,7 @@ or
 
 new UriBuilder("https://awesome.com/yo)
     .WithParameter("id", "5")
+    .Uri
     .ToString();
 
 ```
