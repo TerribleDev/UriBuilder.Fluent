@@ -99,7 +99,7 @@ namespace System
             {
                 valuesEnum = new string[0];
             }
-            var intitialValue = string.IsNullOrWhiteSpace(bld.Fragment) ? "" : $"{bld.Fragment.TrimStart('?')}&";
+            var intitialValue = string.IsNullOrWhiteSpace(bld.Fragment) ? "" : $"{bld.Fragment.TrimStart('#')}&";
             bld.Fragment = intitialValue.AppendKeyValue(key, valuesEnum);
             return bld;
         }
