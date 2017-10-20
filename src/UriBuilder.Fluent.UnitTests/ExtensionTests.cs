@@ -72,6 +72,14 @@ namespace FluentUriBuilder.Tests
         }
 
         [Fact]
+        public void TestAddFragmentArray()
+        {
+            var url = new UriBuilder("http://awesome.com")
+                .WithFragment("awesome", "cool", "dawg");
+            Assert.Equal("http://awesome.com/#awesome=cool,dawg", url.Uri.ToString());
+        }
+
+        [Fact]
         public void TestAddFragmentArrayint()
         {
             var url = new UriBuilder("http://awesome.com")
@@ -172,6 +180,40 @@ namespace FluentUriBuilder.Tests
             var url = new UriBuilder("http://awesome.com")
                     .WithParameter(dictionary);
             Assert.Equal("http://awesome.com/?yo=dawg&troll=toll&hammer", url.Uri.ToString());
+        }
+
+        [Fact]
+        public void AddFragmentWithNoValue()
+        {
+            var url = new UriBuilder("http://awesome.com")
+                .WithFragment("awesome", "yodawg")
+                .WithFragment("fun", null)
+                .WithFragment("cool", string.Empty);
+            Assert.Equal("http://awesome.com/#awesome=yodawg&fun&cool", url.Uri.ToString());
+        }
+
+        [Fact]
+        public void TestAddTwoUrlFragments()
+        {
+            var url = new UriBuilder("http://awesome.com")
+                .WithFragment("awesome", "yodawg")
+                .WithFragment("supg", "no2")
+                .WithFragment("supgf", "no22");
+            Assert.Equal("http://awesome.com/#awesome=yodawg&supg=no2&supgf=no22", url.Uri.ToString());
+        }
+
+        [Fact]
+        public void AddDictOfFragments()
+        {
+            var dictionary = new Dictionary<string, string>()
+            {
+                ["yo"] = "dawg",
+                ["troll"] = "toll",
+                ["hammer"] = string.Empty
+            };
+            var url = new UriBuilder("http://awesome.com")
+                .WithFragment(dictionary);
+            Assert.Equal("http://awesome.com/#yo=dawg&troll=toll&hammer", url.Uri.ToString());
         }
 
         [Fact]
