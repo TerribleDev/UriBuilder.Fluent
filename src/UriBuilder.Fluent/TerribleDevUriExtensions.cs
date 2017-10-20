@@ -52,18 +52,55 @@ namespace System
                 valuesEnum = new string[0];
             }
             var intitialValue = string.IsNullOrWhiteSpace(bld.Query) ? "" : $"{bld.Query.TrimStart('?')}&";
-            var sb = new StringBuilder($"{intitialValue}{key}");
-            var validValueHit = false;
-            foreach(var value in valuesEnum)
+            bld.Query = intitialValue.AppendKeyValue(key, valuesEnum);
+            return bld;
+        }
+
+        /// <summary>
+        /// Appends a fragments parameter with a key, and many values. Multiple values will be comma seperated. If only 1 value is passed and its null or value, the key will be added to the fragment.
+        /// </summary>
+        /// <param name="bld"></param>
+        /// <param name="key"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static UriBuilder WithFragment(this UriBuilder bld, string key, params string[] values) => bld.WithFragment(key, valuesEnum: values);
+
+        /// <summary>
+        /// Appends fragments from dictionary
+        /// </summary>
+        /// <param name="bld"></param>
+        /// <param name="fragmentDictionary"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        public static UriBuilder WithFragment(this UriBuilder bld, IDictionary<string, string> fragmentDictionary)
+        {
+            if(fragmentDictionary == null) throw new ArgumentNullException(nameof(fragmentDictionary));
+            foreach(var item in fragmentDictionary)
             {
-                var toSValue = value?.ToString();
-                if(string.IsNullOrWhiteSpace(toSValue)) continue;
-                // we can't just have an = sign since its valid to have query string paramters with no value;
-                if(!validValueHit) toSValue = "=" + value;
-                validValueHit = true;
-                sb.Append($"{toSValue},");
+                bld.WithFragment(item.Key, item.Value);
             }
-            bld.Query = sb.ToString().TrimEnd(',');
+            return bld;
+        }
+
+        /// <summary>
+        /// Appends a fragments with a key, and many values. Multiple values will be comma seperated. If only 1 value is passed and its null or value, the key will be added to the fragment.
+        /// </summary>
+        /// <param name="bld"></param>
+        /// <param name="key"></param>
+        /// <param name="valuesEnum"></param>
+        /// <returns></returns>
+        public static UriBuilder WithFragment(this UriBuilder bld, string key, IEnumerable<object> valuesEnum)
+        {
+            if(string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+            if(valuesEnum == null)
+            {
+                valuesEnum = new string[0];
+            }
+            var intitialValue = string.IsNullOrWhiteSpace(bld.Fragment) ? "" : $"{bld.Fragment.TrimStart('?')}&";
+            bld.Fragment = intitialValue.AppendKeyValue(key, valuesEnum);
             return bld;
         }
 
@@ -166,5 +203,23 @@ namespace System
         /// <returns></returns>
         public static string ToEscapeDataString(this UriBuilder bld) => Uri.EscapeDataString(bld.Uri.ToString());
 
+        /// <summary>
+        /// Appends x-www-form-urlencoded key and valuesEnum into initialValue.
+        /// </summary>
+        private static string AppendKeyValue(this string intitialValue, string key, IEnumerable<object> valuesEnum)
+        {
+            var sb = new StringBuilder($"{intitialValue}{key}");
+            var validValueHit = false;
+            foreach(var value in valuesEnum)
+            {
+                var toSValue = value?.ToString();
+                if(string.IsNullOrWhiteSpace(toSValue)) continue;
+                // we can't just have an = sign since its valid to have query string paramters with no value;
+                if(!validValueHit) toSValue = "=" + value;
+                validValueHit = true;
+                sb.Append($"{toSValue},");
+            }
+            return  sb.ToString().TrimEnd(',');
+        }
     }
 }
