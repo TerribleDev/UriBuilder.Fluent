@@ -72,6 +72,22 @@ namespace FluentUriBuilder.Tests
         }
 
         [Fact]
+        public void TestAddFragmentArrayint()
+        {
+            var url = new UriBuilder("http://awesome.com")
+                    .WithFragment("awesome", new List<int>() { 1, 2 }.Cast<object>());
+            Assert.Equal("http://awesome.com/#awesome=1,2", url.Uri.ToString());
+        }
+
+        [Fact]
+        public void TestAddFragmentNoValue()
+        {
+            var url = new UriBuilder("http://awesome.com")
+                    .WithFragment("awesome");
+            Assert.Equal("http://awesome.com/#awesome", url.Uri.ToString());
+        }
+
+        [Fact]
         public void WithPort()
         {
             var url = new UriBuilder().WithPort(22);

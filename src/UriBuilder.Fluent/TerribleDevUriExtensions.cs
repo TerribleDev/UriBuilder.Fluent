@@ -68,6 +68,65 @@ namespace System
         }
 
         /// <summary>
+        /// Appends a fragments parameter with a key, and many values. Multiple values will be comma seperated. If only 1 value is passed and its null or value, the key will be added to the fragment.
+        /// </summary>
+        /// <param name="bld"></param>
+        /// <param name="key"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static UriBuilder WithFragment(this UriBuilder bld, string key, params string[] values) => bld.WithFragment(key, valuesEnum: values);
+
+        /// <summary>
+        /// Appends fragments from dictionary
+        /// </summary>
+        /// <param name="bld"></param>
+        /// <param name="fragmentDictionary"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        public static UriBuilder WithFragment(this UriBuilder bld, IDictionary<string, string> fragmentDictionary)
+        {
+            if(fragmentDictionary == null) throw new ArgumentNullException(nameof(fragmentDictionary));
+            foreach(var item in fragmentDictionary)
+            {
+                bld.WithFragment(item.Key, item.Value);
+            }
+            return bld;
+        }
+
+        /// <summary>
+        /// Appends a fragments with a key, and many values. Multiple values will be comma seperated. If only 1 value is passed and its null or value, the key will be added to the fragment.
+        /// </summary>
+        /// <param name="bld"></param>
+        /// <param name="key"></param>
+        /// <param name="valuesEnum"></param>
+        /// <returns></returns>
+        public static UriBuilder WithFragment(this UriBuilder bld, string key, IEnumerable<object> valuesEnum)
+        {
+            if(string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+            if(valuesEnum == null)
+            {
+                valuesEnum = new string[0];
+            }
+            var intitialValue = string.IsNullOrWhiteSpace(bld.Fragment) ? "" : $"{bld.Fragment.TrimStart('?')}&";
+            var sb = new StringBuilder($"{intitialValue}{key}");
+            var validValueHit = false;
+            foreach(var value in valuesEnum)
+            {
+                var toSValue = value?.ToString();
+                if(string.IsNullOrWhiteSpace(toSValue)) continue;
+                // we can't just have an = sign since its valid to have query string paramters with no value;
+                if(!validValueHit) toSValue = "=" + value;
+                validValueHit = true;
+                sb.Append($"{toSValue},");
+            }
+            bld.Fragment = sb.ToString().TrimEnd(',');
+            return bld;
+        }
+
+        /// <summary>
         /// Sets the port to be the port number
         /// </summary>
         /// <param name="bld"></param>

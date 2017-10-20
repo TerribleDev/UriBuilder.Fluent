@@ -13,10 +13,12 @@ namespace FluentUriBuilder.Tests
         {
             var tstObj = new UriBuilder();
             Assert.Throws<ArgumentNullException>(() => tstObj.WithParameter(string.Empty, string.Empty));
+            Assert.Throws<ArgumentNullException>(() => tstObj.WithFragment(string.Empty, string.Empty));
             Assert.Throws<ArgumentNullException>(() => tstObj.WithPathSegment(null));
             Assert.Throws<ArgumentNullException>(() => tstObj.WithScheme(null));
             Assert.Throws<ArgumentNullException>(() => tstObj.WithHost(null));
             Assert.Throws<ArgumentNullException>(() => tstObj.WithParameter(parameterDictionary: null));
+            Assert.Throws<ArgumentNullException>(() => tstObj.WithFragment(fragmentDictionary: null));
             Assert.Throws<ArgumentOutOfRangeException>(() => tstObj.WithPort(-1));
         }
     }
