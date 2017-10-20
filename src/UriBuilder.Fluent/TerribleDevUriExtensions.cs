@@ -52,18 +52,7 @@ namespace System
                 valuesEnum = new string[0];
             }
             var intitialValue = string.IsNullOrWhiteSpace(bld.Query) ? "" : $"{bld.Query.TrimStart('?')}&";
-            var sb = new StringBuilder($"{intitialValue}{key}");
-            var validValueHit = false;
-            foreach(var value in valuesEnum)
-            {
-                var toSValue = value?.ToString();
-                if(string.IsNullOrWhiteSpace(toSValue)) continue;
-                // we can't just have an = sign since its valid to have query string paramters with no value;
-                if(!validValueHit) toSValue = "=" + value;
-                validValueHit = true;
-                sb.Append($"{toSValue},");
-            }
-            bld.Query = sb.ToString().TrimEnd(',');
+            bld.Query = intitialValue.AppendKeyValue(key, valuesEnum);
             return bld;
         }
 
@@ -111,18 +100,7 @@ namespace System
                 valuesEnum = new string[0];
             }
             var intitialValue = string.IsNullOrWhiteSpace(bld.Fragment) ? "" : $"{bld.Fragment.TrimStart('?')}&";
-            var sb = new StringBuilder($"{intitialValue}{key}");
-            var validValueHit = false;
-            foreach(var value in valuesEnum)
-            {
-                var toSValue = value?.ToString();
-                if(string.IsNullOrWhiteSpace(toSValue)) continue;
-                // we can't just have an = sign since its valid to have query string paramters with no value;
-                if(!validValueHit) toSValue = "=" + value;
-                validValueHit = true;
-                sb.Append($"{toSValue},");
-            }
-            bld.Fragment = sb.ToString().TrimEnd(',');
+            bld.Fragment = intitialValue.AppendKeyValue(key, valuesEnum);
             return bld;
         }
 
@@ -225,5 +203,23 @@ namespace System
         /// <returns></returns>
         public static string ToEscapeDataString(this UriBuilder bld) => Uri.EscapeDataString(bld.Uri.ToString());
 
+        /// <summary>
+        /// Appends x-www-form-urlencoded key and valuesEnum into initialValue.
+        /// </summary>
+        private static string AppendKeyValue(this string intitialValue, string key, IEnumerable<object> valuesEnum)
+        {
+            var sb = new StringBuilder($"{intitialValue}{key}");
+            var validValueHit = false;
+            foreach(var value in valuesEnum)
+            {
+                var toSValue = value?.ToString();
+                if(string.IsNullOrWhiteSpace(toSValue)) continue;
+                // we can't just have an = sign since its valid to have query string paramters with no value;
+                if(!validValueHit) toSValue = "=" + value;
+                validValueHit = true;
+                sb.Append($"{toSValue},");
+            }
+            return  sb.ToString().TrimEnd(',');
+        }
     }
 }
