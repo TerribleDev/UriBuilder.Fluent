@@ -73,7 +73,7 @@ namespace FluentUriBuilder.Tests
                             mucharray = new string[] { "so cool", "wow" },
                             manyienumerable = (IEnumerable<string>)(new List<string>() { "how dis work", "so interest" })
                         });
-            Assert.Equal("http://awesome.com/?awesome=yodawg&mucharray=so%20cool,wow&manyienumerable=how%20dis%20work,so%20interest", url.Uri.ToString());
+            Assert.Equal("http://awesome.com/?awesome=yodawg&mucharray=so cool,wow&manyienumerable=how dis work,so interest", url.Uri.ToString());
         }
 
         [Fact]
