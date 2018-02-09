@@ -89,7 +89,7 @@ namespace System
             // Each value is the ToString() of the property value
             //
             IEnumerable<KeyValuePair<string, string>> propertyValues = propertyInfo.Select(p =>
-                new KeyValuePair<string, string>(p.Name, p.GetValue(parameters, null).ToString()));
+                new KeyValuePair<string, string>(p.Name, p.GetValue(parameters, null)?.ToString()));
 
             // Return the UriBuilder with the parameters given by the kvp enumerable
             //
