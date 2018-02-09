@@ -26,8 +26,20 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithParameter(this UriBuilder bld, IDictionary<string, string> parameterDictionary)
         {
-            if(parameterDictionary == null) throw new ArgumentNullException(nameof(parameterDictionary));
-            foreach(var item in parameterDictionary)
+            return bld.WithParameter((IEnumerable <KeyValuePair<string, string>>)parameterDictionary);
+        }
+
+        /// <summary>
+        /// Appends query strings from an enumerable of key-value pairs
+        /// </summary>
+        /// <param name="bld"></param>
+        /// <param name="parameterEnumerable"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        public static UriBuilder WithParameter(this UriBuilder bld, IEnumerable<KeyValuePair<string, string>> parameterEnumerable)
+        {
+            if (parameterEnumerable == null) throw new ArgumentNullException(nameof(parameterEnumerable));
+            foreach (var item in parameterEnumerable)
             {
                 bld.WithParameter(item.Key, item.Value);
             }
