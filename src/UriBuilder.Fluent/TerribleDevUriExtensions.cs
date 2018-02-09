@@ -56,11 +56,11 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithParameter(this UriBuilder bld, string key, IEnumerable<object> valuesEnum)
         {
-            if(string.IsNullOrWhiteSpace(key))
+            if (string.IsNullOrWhiteSpace(key))
             {
                 throw new ArgumentNullException(nameof(key));
             }
-            if(valuesEnum == null)
+            if (valuesEnum == null)
             {
                 valuesEnum = new string[0];
             }
@@ -114,8 +114,8 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithFragment(this UriBuilder bld, IDictionary<string, string> fragmentDictionary)
         {
-            if(fragmentDictionary == null) throw new ArgumentNullException(nameof(fragmentDictionary));
-            foreach(var item in fragmentDictionary)
+            if (fragmentDictionary == null) throw new ArgumentNullException(nameof(fragmentDictionary));
+            foreach (var item in fragmentDictionary)
             {
                 bld.WithFragment(item.Key, item.Value);
             }
@@ -131,11 +131,11 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithFragment(this UriBuilder bld, string key, IEnumerable<object> valuesEnum)
         {
-            if(string.IsNullOrWhiteSpace(key))
+            if (string.IsNullOrWhiteSpace(key))
             {
                 throw new ArgumentNullException(nameof(key));
             }
-            if(valuesEnum == null)
+            if (valuesEnum == null)
             {
                 valuesEnum = new string[0];
             }
@@ -153,7 +153,7 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithPort(this UriBuilder bld, int port)
         {
-            if(port < 1) throw new ArgumentOutOfRangeException(nameof(port));
+            if (port < 1) throw new ArgumentOutOfRangeException(nameof(port));
             bld.Port = port;
             return bld;
         }
@@ -178,7 +178,7 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithPathSegment(this UriBuilder bld, string pathSegment)
         {
-            if(string.IsNullOrWhiteSpace(pathSegment))
+            if (string.IsNullOrWhiteSpace(pathSegment))
             {
                 throw new ArgumentNullException(nameof(pathSegment));
             }
@@ -196,7 +196,7 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithScheme(this UriBuilder bld, string scheme)
         {
-            if(string.IsNullOrWhiteSpace(scheme)) throw new ArgumentNullException(nameof(scheme));
+            if (string.IsNullOrWhiteSpace(scheme)) throw new ArgumentNullException(nameof(scheme));
             bld.Scheme = scheme;
             return bld;
         }
@@ -210,7 +210,7 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithHost(this UriBuilder bld, string host)
         {
-            if(string.IsNullOrWhiteSpace(host)) throw new ArgumentNullException(nameof(host));
+            if (string.IsNullOrWhiteSpace(host)) throw new ArgumentNullException(nameof(host));
             bld.Host = host;
             return bld;
         }
@@ -250,16 +250,16 @@ namespace System
         {
             var sb = new StringBuilder($"{intitialValue}{key}");
             var validValueHit = false;
-            foreach(var value in valuesEnum)
+            foreach (var value in valuesEnum)
             {
                 var toSValue = value?.ToString();
-                if(string.IsNullOrWhiteSpace(toSValue)) continue;
+                if (string.IsNullOrWhiteSpace(toSValue)) continue;
                 // we can't just have an = sign since its valid to have query string paramters with no value;
-                if(!validValueHit) toSValue = "=" + value;
+                if (!validValueHit) toSValue = "=" + value;
                 validValueHit = true;
                 sb.Append($"{toSValue},");
             }
-            return  sb.ToString().TrimEnd(',');
+            return sb.ToString().TrimEnd(',');
         }
     }
 }
