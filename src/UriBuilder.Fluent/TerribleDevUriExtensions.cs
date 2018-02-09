@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -83,17 +84,40 @@ namespace System
             propertyInfo = parameters.GetType().GetTypeInfo().DeclaredProperties;
 #endif
 
-            // Convert the enumerable of property info into an enumerable of key value pairs.
+            // Handle each property value, adding the parameter to the UriBuilder
             //
-            // Each key is the property name
-            // Each value is the ToString() of the property value
-            //
-            IEnumerable<KeyValuePair<string, string>> propertyValues = propertyInfo.Select(p =>
-                new KeyValuePair<string, string>(p.Name, p.GetValue(parameters, null)?.ToString()));
+            foreach (var thisPropertyInfo in propertyInfo) {
+                //
+                // Get the relevant details out of the property info
+                //
+                string propertyName = thisPropertyInfo.Name;
+                object propertyValueObject = thisPropertyInfo.GetValue(parameters, null);
 
-            // Return the UriBuilder with the parameters given by the kvp enumerable
-            //
-            return bld.WithParameter(propertyValues);
+                IEnumerable<object> propertieValuesToAdd;
+
+                // Check if the property value type is an IEnumerable
+                //
+                if (propertyValueObject is IEnumerable enumerableValue)
+                {
+                    // We have an IEnumerable value
+                    //
+                    propertieValuesToAdd = enumerableValue.Cast<object>();
+                }
+                else
+                {
+                    // We have a non-enumerable value
+                    //
+                    propertieValuesToAdd = new object[] { propertyValueObject };
+                }
+
+                // Add the parameter with multiple values using the IEnumerable<object> overload.
+                //
+                // This overload already deals with null values.
+                //
+                bld.WithParameter(propertyName, propertieValuesToAdd);
+            }
+
+            return bld;
         }
 
         /// <summary>
