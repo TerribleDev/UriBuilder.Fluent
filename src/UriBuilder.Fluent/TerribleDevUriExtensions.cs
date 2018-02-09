@@ -95,9 +95,9 @@ namespace System
 
                 IEnumerable<object> propertieValuesToAdd;
 
-                // Check if the property value type is an IEnumerable
+                // Check if the property value type is an IEnumerable, but not a string
                 //
-                if (propertyValueObject is IEnumerable enumerableValue)
+                if (!(propertyValueObject is string) && propertyValueObject is IEnumerable enumerableValue)
                 {
                     // We have an IEnumerable value
                     //
