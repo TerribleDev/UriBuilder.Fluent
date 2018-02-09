@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -66,6 +67,33 @@ namespace System
             var intitialValue = string.IsNullOrWhiteSpace(bld.Query) ? "" : $"{bld.Query.TrimStart('?')}&";
             bld.Query = intitialValue.AppendKeyValue(key, valuesEnum);
             return bld;
+        }
+
+        public static UriBuilder WithParametersFromObject(this UriBuilder bld, object parameters)
+        {
+            IEnumerable<PropertyInfo> propertyInfo;
+
+            // Get the property info
+            //
+            // The method differs depending on framework version
+            //
+#if NET40
+            propertyInfo = parameters.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+#else
+            propertyInfo = parameters.GetType().GetTypeInfo().DeclaredProperties;
+#endif
+
+            // Convert the enumerable of property info into an enumerable of key value pairs.
+            //
+            // Each key is the property name
+            // Each value is the ToString() of the property value
+            //
+            IEnumerable<KeyValuePair<string, string>> propertyValues = propertyInfo.Select(p =>
+                new KeyValuePair<string, string>(p.Name, p.GetValue(parameters, null).ToString()));
+
+            // Return the UriBuilder with the parameters given by the kvp enumerable
+            //
+            return bld.WithParameter(propertyValues);
         }
 
         /// <summary>
