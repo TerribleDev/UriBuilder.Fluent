@@ -35,7 +35,7 @@ namespace FluentUriBuilder.Tests
                     .WithParameter("awesome", "yodawg");
             Assert.Equal("http://awesome.com/?awesome=yodawg", url.Uri.ToString());
         }
-        
+
         [Fact]
         public void PathAndQuery()
         {
@@ -61,6 +61,19 @@ namespace FluentUriBuilder.Tests
             var url = new UriBuilder("http://awesome.com")
                     .WithParameter("awesome", new List<int>() { 1, 2 }.Cast<object>());
             Assert.Equal("http://awesome.com/?awesome=1,2", url.Uri.ToString());
+        }
+
+        [Fact]
+        public void TestAddUrlParametersFromObject()
+        {
+            var url = new UriBuilder("http://awesome.com")
+                    .WithParametersFromObject(
+                        new {
+                            awesome = "yodawg",
+                            mucharray = new string[] { "so cool", "wow" },
+                            manyienumerable = (IEnumerable<string>)(new List<string>() { "how dis work", "so interest" })
+                        });
+            Assert.Equal("http://awesome.com/?awesome=yodawg&mucharray=so%20cool,wow&manyienumerable=how%20dis%20work,so%20interest", url.Uri.ToString());
         }
 
         [Fact]
