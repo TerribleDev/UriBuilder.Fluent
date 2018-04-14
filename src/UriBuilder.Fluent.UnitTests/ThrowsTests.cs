@@ -20,6 +20,13 @@ namespace FluentUriBuilder.Tests
             Assert.Throws<ArgumentNullException>(() => tstObj.WithParameter(parameterDictionary: null));
             Assert.Throws<ArgumentNullException>(() => tstObj.WithFragment(fragmentDictionary: null));
             Assert.Throws<ArgumentOutOfRangeException>(() => tstObj.WithPort(-1));
+            UriBuilder nullPtr = null;
+            Assert.Throws<ArgumentNullException>(()=>nullPtr.WithFragment("yo", "dawg"));
+            Assert.Throws<ArgumentNullException>(()=>nullPtr.WithParameter("yo", "dawg"));
+            Assert.Throws<ArgumentNullException>(()=>nullPtr.WithPathSegment("yo"));
+            Assert.Throws<ArgumentNullException>(()=>nullPtr.WithScheme("yo"));
+            Assert.Throws<ArgumentNullException>(()=>nullPtr.WithFragment("yo"));
+            Assert.Throws<ArgumentNullException>(()=>nullPtr.WithoutDefaultPort());
         }
     }
 }
