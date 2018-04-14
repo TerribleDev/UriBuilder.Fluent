@@ -26,6 +26,10 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithParameter(this UriBuilder bld, IDictionary<string, string> parameterDictionary)
         {
+            if(bld == null)
+            {
+                throw new ArgumentNullException(nameof(bld));
+            }
             if(parameterDictionary == null) throw new ArgumentNullException(nameof(parameterDictionary));
             foreach(var item in parameterDictionary)
             {
@@ -43,6 +47,10 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithParameter(this UriBuilder bld, string key, IEnumerable<object> valuesEnum)
         {
+            if(bld == null)
+            {
+                throw new ArgumentNullException(nameof(bld));
+            }
             if(string.IsNullOrWhiteSpace(key))
             {
                 throw new ArgumentNullException(nameof(key));
@@ -74,6 +82,10 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithFragment(this UriBuilder bld, IDictionary<string, string> fragmentDictionary)
         {
+            if(bld == null)
+            {
+                throw new ArgumentNullException(nameof(bld));
+            }
             if(fragmentDictionary == null) throw new ArgumentNullException(nameof(fragmentDictionary));
             foreach(var item in fragmentDictionary)
             {
@@ -91,6 +103,10 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithFragment(this UriBuilder bld, string key, IEnumerable<object> valuesEnum)
         {
+            if(bld == null)
+            {
+                throw new ArgumentNullException(nameof(bld));
+            }
             if(string.IsNullOrWhiteSpace(key))
             {
                 throw new ArgumentNullException(nameof(key));
@@ -113,6 +129,10 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithPort(this UriBuilder bld, int port)
         {
+            if(bld == null)
+            {
+                throw new ArgumentNullException(nameof(bld));
+            }
             if(port < 1) throw new ArgumentOutOfRangeException(nameof(port));
             bld.Port = port;
             return bld;
@@ -125,6 +145,10 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithoutDefaultPort(this UriBuilder bld)
         {
+            if(bld == null)
+            {
+                throw new ArgumentNullException(nameof(bld));
+            }
             if (bld.Uri.IsDefaultPort) bld.Port = -1;
             return bld;
         }
@@ -138,6 +162,10 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithPathSegment(this UriBuilder bld, string pathSegment)
         {
+            if(bld == null)
+            {
+                throw new ArgumentNullException(nameof(bld));
+            }
             if(string.IsNullOrWhiteSpace(pathSegment))
             {
                 throw new ArgumentNullException(nameof(pathSegment));
@@ -156,6 +184,10 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithScheme(this UriBuilder bld, string scheme)
         {
+            if(bld == null)
+            {
+                throw new ArgumentNullException(nameof(bld));
+            }
             if(string.IsNullOrWhiteSpace(scheme)) throw new ArgumentNullException(nameof(scheme));
             bld.Scheme = scheme;
             return bld;
@@ -170,6 +202,10 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithHost(this UriBuilder bld, string host)
         {
+            if(bld == null)
+            {
+                throw new ArgumentNullException(nameof(bld));
+            }
             if(string.IsNullOrWhiteSpace(host)) throw new ArgumentNullException(nameof(host));
             bld.Host = host;
             return bld;
@@ -185,6 +221,10 @@ namespace System
         /// <returns></returns>
         public static UriBuilder UseHttps(this UriBuilder bld, bool predicate = true)
         {
+            if(bld == null)
+            {
+                throw new ArgumentNullException(nameof(bld));
+            }
             bld.Scheme = predicate ? "https" : "http";
             return bld;
         }
