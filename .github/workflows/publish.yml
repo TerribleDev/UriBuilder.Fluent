@@ -5,6 +5,7 @@ on:
       - master
 jobs:
   check-format:
+    environment: master
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -15,6 +16,7 @@ jobs:
       - name: Check Format
         run: make check-format
   test:
+    environment: master
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -36,7 +38,7 @@ jobs:
     outputs:
       tagVersion: ${{ steps.tagVersion.outputs.new_tag }}
     runs-on: ubuntu-latest
-    environment: main
+    environment: master
     steps:
       - name: Checkout source code
         uses: actions/checkout@v3
@@ -52,6 +54,7 @@ jobs:
       VERSION: ${{ needs.tag.outputs.tagVersion }}
       NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
     runs-on: ubuntu-latest
+    environment: master
     needs: [check-format, test, tag]
     steps:
       - uses: actions/checkout@v2
