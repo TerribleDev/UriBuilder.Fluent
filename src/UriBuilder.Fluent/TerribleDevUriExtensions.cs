@@ -3,7 +3,7 @@ using System.Text;
 
 namespace System
 {
-    public static class TerribleDevUriExtensions
+    public static partial class TerribleDevUriExtensions
     {
         /// <summary>
         /// Appends a query string parameter with a key, and many values. Multiple values will be comma seperated. If only 1 value is passed and its null or value, the key will be added to the QS.

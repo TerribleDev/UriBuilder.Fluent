@@ -24,7 +24,7 @@
 	<ItemGroup>
 		<None Include="..\..\Readme.md" Pack="true" PackagePath="\" />
 		<None Include="..\..\UriBulider.Fluent.png" Pack="true" PackagePath="\" />
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
 
 	

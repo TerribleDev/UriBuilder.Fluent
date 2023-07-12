@@ -18,6 +18,7 @@ namespace FluentUriBuilder.Tests
             Assert.Throws<ArgumentNullException>(() => tstObj.WithScheme(null));
             Assert.Throws<ArgumentNullException>(() => tstObj.WithHost(null));
             Assert.Throws<ArgumentNullException>(() => tstObj.WithParameter((IEnumerable<KeyValuePair<string, string>>)null));
+            Assert.Throws<ArgumentNullException>(() => tstObj.WithParameter((IEnumerable<(string, string)>)null));
             Assert.Throws<ArgumentNullException>(() => tstObj.WithFragment(fragmentDictionary: null));
             Assert.Throws<ArgumentOutOfRangeException>(() => tstObj.WithPort(-1));
             UriBuilder nullPtr = null;
@@ -32,6 +33,7 @@ namespace FluentUriBuilder.Tests
             Assert.Throws<ArgumentNullException>(() => nullPtr.WithPort(1));
             Assert.Throws<ArgumentNullException>(() => nullPtr.WithHost("yo"));
             Assert.Throws<ArgumentNullException>(() => nullPtr.UseHttps());
+            Assert.Throws<ArgumentNullException>(() => nullPtr.WithParameter((IEnumerable<(string, string)>)null));
         }
     }
 }
