@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace System
 {
-    public static class TerribleDevUriExtensions
+    public static partial class TerribleDevUriExtensions
     {
         /// <summary>
         /// Appends a query string parameter with a key, and many values. Multiple values will be comma seperated. If only 1 value is passed and its null or value, the key will be added to the QS.
@@ -17,21 +17,25 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithParameter(this UriBuilder bld, string key, params string[] values) => bld.WithParameter(key, valuesEnum: values);
 
+
         /// <summary>
-        /// Appends query strings from dictionary
+        /// Appends query strings from a list of key-value pairs (usually a dictionary).
         /// </summary>
         /// <param name="bld"></param>
         /// <param name="parameterDictionary"></param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
-        public static UriBuilder WithParameter(this UriBuilder bld, IDictionary<string, string> parameterDictionary)
+        public static UriBuilder WithParameter(this UriBuilder bld, IEnumerable<KeyValuePair<string, string>> parameterDictionary)
         {
-            if(bld == null)
+            if (bld == null)
             {
                 throw new ArgumentNullException(nameof(bld));
             }
-            if(parameterDictionary == null) throw new ArgumentNullException(nameof(parameterDictionary));
-            foreach(var item in parameterDictionary)
+            if (parameterDictionary == null)
+            {
+                throw new ArgumentNullException(nameof(parameterDictionary));
+            }
+            foreach (var item in parameterDictionary)
             {
                 bld.WithParameter(item.Key, item.Value);
             }
@@ -86,7 +90,10 @@ namespace System
             {
                 throw new ArgumentNullException(nameof(bld));
             }
-            if(fragmentDictionary == null) throw new ArgumentNullException(nameof(fragmentDictionary));
+            if (fragmentDictionary == null)
+            {
+                throw new ArgumentNullException(nameof(fragmentDictionary));
+            }
             foreach(var item in fragmentDictionary)
             {
                 bld.WithFragment(item.Key, item.Value);
@@ -133,7 +140,10 @@ namespace System
             {
                 throw new ArgumentNullException(nameof(bld));
             }
-            if(port < 1) throw new ArgumentOutOfRangeException(nameof(port));
+            if(port < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(port));
+            }
             bld.Port = port;
             return bld;
         }
@@ -149,7 +159,10 @@ namespace System
             {
                 throw new ArgumentNullException(nameof(bld));
             }
-            if (bld.Uri.IsDefaultPort) bld.Port = -1;
+            if (bld.Uri.IsDefaultPort)
+            {
+                bld.Port = -1;
+            }
             return bld;
         }
 
@@ -188,7 +201,10 @@ namespace System
             {
                 throw new ArgumentNullException(nameof(bld));
             }
-            if(string.IsNullOrWhiteSpace(scheme)) throw new ArgumentNullException(nameof(scheme));
+            if (string.IsNullOrWhiteSpace(scheme))
+            {
+                throw new ArgumentNullException(nameof(scheme));
+            }
             bld.Scheme = scheme;
             return bld;
         }
@@ -206,7 +222,10 @@ namespace System
             {
                 throw new ArgumentNullException(nameof(bld));
             }
-            if(string.IsNullOrWhiteSpace(host)) throw new ArgumentNullException(nameof(host));
+            if (string.IsNullOrWhiteSpace(host))
+            {
+                throw new ArgumentNullException(nameof(host));
+            }
             bld.Host = host;
             return bld;
         }
