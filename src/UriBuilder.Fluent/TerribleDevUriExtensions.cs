@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace System
 {
@@ -14,24 +11,28 @@ namespace System
         /// <param name="bld"></param>
         /// <param name="key"></param>
         /// <param name="values"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
         public static UriBuilder WithParameter(this UriBuilder bld, string key, params string[] values) => bld.WithParameter(key, valuesEnum: values);
 
         /// <summary>
-        /// Appends query strings from dictionary
+        /// Appends query strings from a list of key-value pairs (usually a dictionary).
         /// </summary>
         /// <param name="bld"></param>
         /// <param name="parameterDictionary"></param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
-        public static UriBuilder WithParameter(this UriBuilder bld, IDictionary<string, string> parameterDictionary)
+        public static UriBuilder WithParameter(this UriBuilder bld, IEnumerable<KeyValuePair<string, string>> parameterDictionary)
         {
-            if(bld == null)
+            if (bld == null)
             {
                 throw new ArgumentNullException(nameof(bld));
             }
-            if(parameterDictionary == null) throw new ArgumentNullException(nameof(parameterDictionary));
-            foreach(var item in parameterDictionary)
+            if (parameterDictionary == null)
+            {
+                throw new ArgumentNullException(nameof(parameterDictionary));
+            }
+            foreach (var item in parameterDictionary)
             {
                 bld.WithParameter(item.Key, item.Value);
             }
@@ -44,18 +45,19 @@ namespace System
         /// <param name="bld"></param>
         /// <param name="key"></param>
         /// <param name="valuesEnum"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
         public static UriBuilder WithParameter(this UriBuilder bld, string key, IEnumerable<object> valuesEnum)
         {
-            if(bld == null)
+            if (bld == null)
             {
                 throw new ArgumentNullException(nameof(bld));
             }
-            if(string.IsNullOrWhiteSpace(key))
+            if (string.IsNullOrWhiteSpace(key))
             {
                 throw new ArgumentNullException(nameof(key));
             }
-            if(valuesEnum == null)
+            if (valuesEnum == null)
             {
                 valuesEnum = new string[0];
             }
@@ -70,6 +72,7 @@ namespace System
         /// <param name="bld"></param>
         /// <param name="key"></param>
         /// <param name="values"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
         public static UriBuilder WithFragment(this UriBuilder bld, string key, params string[] values) => bld.WithFragment(key, valuesEnum: values);
 
@@ -82,12 +85,15 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithFragment(this UriBuilder bld, IDictionary<string, string> fragmentDictionary)
         {
-            if(bld == null)
+            if (bld == null)
             {
                 throw new ArgumentNullException(nameof(bld));
             }
-            if(fragmentDictionary == null) throw new ArgumentNullException(nameof(fragmentDictionary));
-            foreach(var item in fragmentDictionary)
+            if (fragmentDictionary == null)
+            {
+                throw new ArgumentNullException(nameof(fragmentDictionary));
+            }
+            foreach (var item in fragmentDictionary)
             {
                 bld.WithFragment(item.Key, item.Value);
             }
@@ -100,18 +106,19 @@ namespace System
         /// <param name="bld"></param>
         /// <param name="key"></param>
         /// <param name="valuesEnum"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
         public static UriBuilder WithFragment(this UriBuilder bld, string key, IEnumerable<object> valuesEnum)
         {
-            if(bld == null)
+            if (bld == null)
             {
                 throw new ArgumentNullException(nameof(bld));
             }
-            if(string.IsNullOrWhiteSpace(key))
+            if (string.IsNullOrWhiteSpace(key))
             {
                 throw new ArgumentNullException(nameof(key));
             }
-            if(valuesEnum == null)
+            if (valuesEnum == null)
             {
                 valuesEnum = new string[0];
             }
@@ -126,14 +133,18 @@ namespace System
         /// <param name="bld"></param>
         /// <param name="port"></param>
         /// <exception cref="ArgumentOutOfRangeException">Throws if port is less than one</exception>
+        /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
         public static UriBuilder WithPort(this UriBuilder bld, int port)
         {
-            if(bld == null)
+            if (bld == null)
             {
                 throw new ArgumentNullException(nameof(bld));
             }
-            if(port < 1) throw new ArgumentOutOfRangeException(nameof(port));
+            if (port < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(port));
+            }
             bld.Port = port;
             return bld;
         }
@@ -145,11 +156,14 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithoutDefaultPort(this UriBuilder bld)
         {
-            if(bld == null)
+            if (bld == null)
             {
                 throw new ArgumentNullException(nameof(bld));
             }
-            if (bld.Uri.IsDefaultPort) bld.Port = -1;
+            if (bld.Uri.IsDefaultPort)
+            {
+                bld.Port = -1;
+            }
             return bld;
         }
 
@@ -162,11 +176,11 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithPathSegment(this UriBuilder bld, string pathSegment)
         {
-            if(bld == null)
+            if (bld == null)
             {
                 throw new ArgumentNullException(nameof(bld));
             }
-            if(string.IsNullOrWhiteSpace(pathSegment))
+            if (string.IsNullOrWhiteSpace(pathSegment))
             {
                 throw new ArgumentNullException(nameof(pathSegment));
             }
@@ -184,11 +198,14 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithScheme(this UriBuilder bld, string scheme)
         {
-            if(bld == null)
+            if (bld == null)
             {
                 throw new ArgumentNullException(nameof(bld));
             }
-            if(string.IsNullOrWhiteSpace(scheme)) throw new ArgumentNullException(nameof(scheme));
+            if (string.IsNullOrWhiteSpace(scheme))
+            {
+                throw new ArgumentNullException(nameof(scheme));
+            }
             bld.Scheme = scheme;
             return bld;
         }
@@ -202,11 +219,14 @@ namespace System
         /// <returns></returns>
         public static UriBuilder WithHost(this UriBuilder bld, string host)
         {
-            if(bld == null)
+            if (bld == null)
             {
                 throw new ArgumentNullException(nameof(bld));
             }
-            if(string.IsNullOrWhiteSpace(host)) throw new ArgumentNullException(nameof(host));
+            if (string.IsNullOrWhiteSpace(host))
+            {
+                throw new ArgumentNullException(nameof(host));
+            }
             bld.Host = host;
             return bld;
         }
@@ -218,10 +238,11 @@ namespace System
         /// </summary>
         /// <param name="bld"></param>
         /// <param name="predicate">default true, if false sets scheme to http</param>
+        /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
         public static UriBuilder UseHttps(this UriBuilder bld, bool predicate = true)
         {
-            if(bld == null)
+            if (bld == null)
             {
                 throw new ArgumentNullException(nameof(bld));
             }
@@ -233,6 +254,7 @@ namespace System
         /// Escape Url query string
         /// </summary>
         /// <param name="bld"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
         public static string ToEscapeString(this UriBuilder bld) => Uri.EscapeUriString(bld.Uri.ToString());
 
@@ -240,26 +262,28 @@ namespace System
         /// Escape the whole Url string
         /// </summary>
         /// <param name="bld"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
         public static string ToEscapeDataString(this UriBuilder bld) => Uri.EscapeDataString(bld.Uri.ToString());
 
         /// <summary>
         /// Appends x-www-form-urlencoded key and valuesEnum into initialValue.
         /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
         private static string AppendKeyValue(this string intitialValue, string key, IEnumerable<object> valuesEnum)
         {
             var sb = new StringBuilder($"{intitialValue}{key}");
             var validValueHit = false;
-            foreach(var value in valuesEnum)
+            foreach (var value in valuesEnum)
             {
                 var toSValue = value?.ToString();
-                if(string.IsNullOrWhiteSpace(toSValue)) continue;
+                if (string.IsNullOrWhiteSpace(toSValue)) continue;
                 // we can't just have an = sign since its valid to have query string paramters with no value;
-                if(!validValueHit) toSValue = "=" + value;
+                if (!validValueHit) toSValue = "=" + value;
                 validValueHit = true;
                 sb.Append($"{toSValue},");
             }
-            return  sb.ToString().TrimEnd(',');
+            return sb.ToString().TrimEnd(',');
         }
     }
 }

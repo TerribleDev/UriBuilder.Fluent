@@ -2,21 +2,30 @@
 
   <PropertyGroup>
     <Authors>Tommy Parnell</Authors>
-    <TargetFrameworks>netstandard1.1;net40;net45;netstandard2.0</TargetFrameworks>
     <AssemblyName>UriBuilder.Fluent</AssemblyName>
     <PackageId>UriBuilder.Fluent</PackageId>
     <PackageTags>Url building;Uri;Uri building;fluent;extension</PackageTags>
     <PackageProjectUrl>https://github.com/TerribleDev/UriBuilder.Fluent</PackageProjectUrl>
+
+	<PackageIcon>UriBulider.Fluent.png</PackageIcon>
+	<PackageIconUrl />
+	<TargetFramework>netstandard2.0</TargetFramework>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	<PackageReleaseNotes>
+		This package adds extension methods over System.UriBuilder to help deal with query string parameters and create more of a fluent interface. 
+		Unlike other projects, this NetStandardLibrary compliant package builds ontop of trusty UriBuilder, does not use custom Uri generators, and has no outside dependencies!
+	</PackageReleaseNotes>
   </PropertyGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\Readme.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\UriBulider.Fluent.png" Pack="true" PackagePath="\" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+	</ItemGroup>
 
+	
 </Project>

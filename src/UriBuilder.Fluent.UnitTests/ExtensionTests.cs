@@ -35,7 +35,7 @@ namespace FluentUriBuilder.Tests
                     .WithParameter("awesome", "yodawg");
             Assert.Equal("http://awesome.com/?awesome=yodawg", url.Uri.ToString());
         }
-        
+
         [Fact]
         public void PathAndQuery()
         {
@@ -99,7 +99,7 @@ namespace FluentUriBuilder.Tests
         public void WithPort()
         {
             var url = new UriBuilder().WithPort(22);
-            Assert.Equal(url.Port, 22);
+            Assert.Equal(22, url.Port);
         }
 
         [Fact]
@@ -122,14 +122,14 @@ namespace FluentUriBuilder.Tests
         public void WithHttps()
         {
             var url = new UriBuilder().UseHttps(true);
-            Assert.Equal(url.Scheme, "https");
+            Assert.Equal("https", url.Scheme);
         }
 
         [Fact]
         public void WithHttp()
         {
             var url = new UriBuilder().UseHttps(false);
-            Assert.Equal(url.Scheme, "http");
+            Assert.Equal("http", url.Scheme);
         }
 
         [Fact]
@@ -137,7 +137,7 @@ namespace FluentUriBuilder.Tests
         {
             //the jesus scheme?
             var url = new UriBuilder().WithScheme("jesus");
-            Assert.Equal(url.Scheme, "jesus");
+            Assert.Equal("jesus", url.Scheme);
         }
 
         [Fact]
@@ -145,7 +145,7 @@ namespace FluentUriBuilder.Tests
         {
             //the jesus scheme?
             var url = new UriBuilder().WithHost("yodawg.com");
-            Assert.Equal(url.Host, "yodawg.com");
+            Assert.Equal("yodawg.com", url.Host);
         }
 
         [Fact]
@@ -220,15 +220,15 @@ namespace FluentUriBuilder.Tests
         public void TestToEscapedString()
         {
             var url = new UriBuilder("http://awesome.com")
-                    .WithParameter("yo","dawg<");
+                    .WithParameter("yo", "dawg<");
             Assert.Equal("http://awesome.com/?yo=dawg%3C", url.ToEscapeString());
         }
-        
+
         [Fact]
         public void TestToEscapedDataString()
         {
             var url = new UriBuilder("http://awesome.com")
-                    .WithParameter("yo","dawg<");
+                    .WithParameter("yo", "dawg<");
             Assert.Equal("http%3A%2F%2Fawesome.com%2F%3Fyo%3Ddawg%3C", url.ToEscapeDataString());
         }
     }

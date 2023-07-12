@@ -148,6 +148,7 @@ publish/
 
 # NuGet Packages
 *.nupkg
+*.snupkg
 # The packages folder can be ignored because of Package Restore
 **/packages/*
 # except build/, which is used as an MSBuild target.
@@ -243,3 +244,8 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+.idea
+coverage.opencover.xml
+coverage.json
+coverage.info
+output
