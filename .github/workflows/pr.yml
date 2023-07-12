@@ -1,0 +1,44 @@
+name: PR Build
+on:
+  pull_request:
+    branches:
+      - master
+jobs:
+  # dotnet test
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.x.x
+      - name: Build 
+        run: make build
+      - name: Test
+        run: make test
+  pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.x.x
+      - name: Pack
+        run: VERSION=0.0.1 make pack
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pr-build-${{ github.event.pull_request.number }}-${{ github.sha }}
+          path: ./output/**
+  check-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.x.x
+      - name: Check Format
+        run: make check-format

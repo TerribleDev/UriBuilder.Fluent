@@ -1,0 +1,70 @@
+name: Publish
+on:
+  push:
+    branches:
+      - master
+jobs:
+  check-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.x.x
+      - name: Check Format
+        run: make check-format
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.x.x
+      - name: Build 
+        run: make build
+      - name: Test
+        run: make test
+      - name: Upload Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./src/UriBuilder.Fluent.UnitTests/coverage.info
+  tag:
+    needs: [check-format, test]
+    outputs:
+      tagVersion: ${{ steps.tagVersion.outputs.new_tag }}
+    runs-on: ubuntu-latest
+    environment: main
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: false
+          DEFAULT_BUMP: minor
+        id: tagVersion
+  build:
+    env:
+      VERSION: ${{ needs.tag.outputs.tagVersion }}
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+    runs-on: ubuntu-latest
+    needs: [check-format, test, tag]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.x.x
+      - name: Build and Pack
+        run: make pack
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: release-build-${{ needs.tag.outputs.tagVersion }}
+          path: ./output/**
+      - name: Publish to NuGet
+        run: make publish
