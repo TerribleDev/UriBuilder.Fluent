@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Authors>Tommy Parnell</Authors>
-    <TargetFrameworks>net480;net60;net70</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <AssemblyName>UriBuilder.Fluent</AssemblyName>
     <PackageId>UriBuilder.Fluent</PackageId>
     <PackageTags>Url building;Uri;Uri building;fluent;extension</PackageTags>
