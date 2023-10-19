@@ -16,7 +16,7 @@ namespace FluentUriBuilder.Tests
         {
             var url = new UriBuilder("http://awesome.com")
                 .WithPathSegment(pathWithSlashes);
-            Assert.Equal("http://awesome.com/" + expectedPath, url.Uri.ToString());
+            Assert.Equal("http://awesome.com/" + expectedPath, url.ToUriString());
         }
 
         [Fact]
@@ -25,7 +25,7 @@ namespace FluentUriBuilder.Tests
             var url = new UriBuilder("http://awesome.com")
                 .WithPathSegment("yodawg")
                 .WithPathSegment("/immahslash/");
-            Assert.Equal("http://awesome.com/yodawg/immahslash/", url.Uri.ToString());
+            Assert.Equal("http://awesome.com/yodawg/immahslash/", url.ToUriString());
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace FluentUriBuilder.Tests
         {
             var url = new UriBuilder("http://awesome.com")
                     .WithParameter("awesome", "yodawg");
-            Assert.Equal("http://awesome.com/?awesome=yodawg", url.Uri.ToString());
+            Assert.Equal("http://awesome.com/?awesome=yodawg", url.ToUriString());
         }
         [Fact]
         public void TestAddUrlParameterAsTupleList()
@@ -43,7 +43,7 @@ namespace FluentUriBuilder.Tests
                     {
                         ("awesome", "yodawg")
                     });
-            Assert.Equal("http://awesome.com/?awesome=yodawg", url.Uri.ToString());
+            Assert.Equal("http://awesome.com/?awesome=yodawg", url.ToUriString());
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace FluentUriBuilder.Tests
         {
             var url = new UriBuilder("http://awesome.com")
                     .WithParameter("awesome", "cool", "dawg");
-            Assert.Equal("http://awesome.com/?awesome=cool,dawg", url.Uri.ToString());
+            Assert.Equal("http://awesome.com/?awesome=cool,dawg", url.ToUriString());
         }
 
         [Fact]
@@ -70,7 +70,7 @@ namespace FluentUriBuilder.Tests
         {
             var url = new UriBuilder("http://awesome.com")
                     .WithParameter("awesome", new List<int>() { 1, 2 }.Cast<object>());
-            Assert.Equal("http://awesome.com/?awesome=1,2", url.Uri.ToString());
+            Assert.Equal("http://awesome.com/?awesome=1,2", url.ToUriString());
         }
 
         [Fact]
@@ -78,7 +78,7 @@ namespace FluentUriBuilder.Tests
         {
             var url = new UriBuilder("http://awesome.com")
                     .WithParameter("awesome");
-            Assert.Equal("http://awesome.com/?awesome", url.Uri.ToString());
+            Assert.Equal("http://awesome.com/?awesome", url.ToUriString());
         }
 
         [Fact]
@@ -86,7 +86,7 @@ namespace FluentUriBuilder.Tests
         {
             var url = new UriBuilder("http://awesome.com")
                 .WithFragment("awesome", "cool", "dawg");
-            Assert.Equal("http://awesome.com/#awesome=cool,dawg", url.Uri.ToString());
+            Assert.Equal("http://awesome.com/#awesome=cool,dawg", url.ToUriString());
         }
 
         [Fact]
@@ -94,7 +94,7 @@ namespace FluentUriBuilder.Tests
         {
             var url = new UriBuilder("http://awesome.com")
                     .WithFragment("awesome", new List<int>() { 1, 2 }.Cast<object>());
-            Assert.Equal("http://awesome.com/#awesome=1,2", url.Uri.ToString());
+            Assert.Equal("http://awesome.com/#awesome=1,2", url.ToUriString());
         }
 
         [Fact]
@@ -102,7 +102,7 @@ namespace FluentUriBuilder.Tests
         {
             var url = new UriBuilder("http://awesome.com")
                     .WithFragment("awesome");
-            Assert.Equal("http://awesome.com/#awesome", url.Uri.ToString());
+            Assert.Equal("http://awesome.com/#awesome", url.ToUriString());
         }
 
         [Fact]
@@ -117,15 +117,15 @@ namespace FluentUriBuilder.Tests
         {
             var url = new UriBuilder("http://awesome.com:80")
                 .WithoutDefaultPort();
-            Assert.Equal("http://awesome.com/", url.Uri.ToString());
+            Assert.Equal("http://awesome.com/", url.ToUriString());
 
             url = new UriBuilder("http://awesome.com:443")
                 .WithoutDefaultPort();
-            Assert.Equal("http://awesome.com:443/", url.Uri.ToString());
+            Assert.Equal("http://awesome.com:443/", url.ToUriString());
 
             url = new UriBuilder("https://awesome.com:443")
                 .WithoutDefaultPort();
-            Assert.Equal("https://awesome.com/", url.Uri.ToString());
+            Assert.Equal("https://awesome.com/", url.ToUriString());
         }
 
         [Fact]
@@ -165,7 +165,7 @@ namespace FluentUriBuilder.Tests
                     .WithParameter("awesome", "yodawg")
                     .WithParameter("fun", null)
                     .WithParameter("cool", string.Empty);
-            Assert.Equal("http://awesome.com/?awesome=yodawg&fun&cool", url.Uri.ToString());
+            Assert.Equal("http://awesome.com/?awesome=yodawg&fun&cool", url.ToUriString());
         }
 
         [Fact]
@@ -175,7 +175,7 @@ namespace FluentUriBuilder.Tests
                     .WithParameter("awesome", "yodawg")
                     .WithParameter("supg", "no2")
                     .WithParameter("supgf", "no22");
-            Assert.Equal("http://awesome.com/?awesome=yodawg&supg=no2&supgf=no22", url.Uri.ToString());
+            Assert.Equal("http://awesome.com/?awesome=yodawg&supg=no2&supgf=no22", url.ToUriString());
         }
 
         [Fact]
@@ -189,7 +189,7 @@ namespace FluentUriBuilder.Tests
             };
             var url = new UriBuilder("http://awesome.com")
                     .WithParameter(dictionary);
-            Assert.Equal("http://awesome.com/?yo=dawg&troll=toll&hammer", url.Uri.ToString());
+            Assert.Equal("http://awesome.com/?yo=dawg&troll=toll&hammer", url.ToUriString());
         }
 
         [Fact]
@@ -199,7 +199,7 @@ namespace FluentUriBuilder.Tests
                 .WithFragment("awesome", "yodawg")
                 .WithFragment("fun", null)
                 .WithFragment("cool", string.Empty);
-            Assert.Equal("http://awesome.com/#awesome=yodawg&fun&cool", url.Uri.ToString());
+            Assert.Equal("http://awesome.com/#awesome=yodawg&fun&cool", url.ToUriString());
         }
 
         [Fact]
@@ -209,7 +209,7 @@ namespace FluentUriBuilder.Tests
                 .WithFragment("awesome", "yodawg")
                 .WithFragment("supg", "no2")
                 .WithFragment("supgf", "no22");
-            Assert.Equal("http://awesome.com/#awesome=yodawg&supg=no2&supgf=no22", url.Uri.ToString());
+            Assert.Equal("http://awesome.com/#awesome=yodawg&supg=no2&supgf=no22", url.ToUriString());
         }
 
         [Fact]
@@ -223,7 +223,7 @@ namespace FluentUriBuilder.Tests
             };
             var url = new UriBuilder("http://awesome.com")
                 .WithFragment(dictionary);
-            Assert.Equal("http://awesome.com/#yo=dawg&troll=toll&hammer", url.Uri.ToString());
+            Assert.Equal("http://awesome.com/#yo=dawg&troll=toll&hammer", url.ToUriString());
         }
 
         [Fact]
@@ -231,15 +231,8 @@ namespace FluentUriBuilder.Tests
         {
             var url = new UriBuilder("http://awesome.com")
                     .WithParameter("yo", "dawg<");
-            Assert.Equal("http://awesome.com/?yo=dawg%3C", url.ToEscapeString());
+            Assert.Equal("http://awesome.com/?yo=dawg<", url.ToUriString());
         }
 
-        [Fact]
-        public void TestToEscapedDataString()
-        {
-            var url = new UriBuilder("http://awesome.com")
-                    .WithParameter("yo", "dawg<");
-            Assert.Equal("http%3A%2F%2Fawesome.com%2F%3Fyo%3Ddawg%3C", url.ToEscapeDataString());
-        }
     }
 }

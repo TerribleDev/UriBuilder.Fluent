@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Data.SqlTypes;
+using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace System
@@ -267,23 +270,36 @@ namespace System
         public static string ToEscapeDataString(this UriBuilder bld) => Uri.EscapeDataString(bld.Uri.ToString());
 
         /// <summary>
+        /// Returns the Uri string
+        /// </summary>
+        /// <param name="bld"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        public static string ToUriString(this UriBuilder bld) => bld.Uri.ToString();
+
+        /// <summary>
         /// Appends x-www-form-urlencoded key and valuesEnum into initialValue.
         /// </summary>
         /// <exception cref="ArgumentNullException"></exception>
         private static string AppendKeyValue(this string intitialValue, string key, IEnumerable<object> valuesEnum)
         {
-            var sb = new StringBuilder($"{intitialValue}{key}");
-            var validValueHit = false;
-            foreach (var value in valuesEnum)
-            {
-                var toSValue = value?.ToString();
-                if (string.IsNullOrWhiteSpace(toSValue)) continue;
-                // we can't just have an = sign since its valid to have query string paramters with no value;
-                if (!validValueHit) toSValue = "=" + value;
-                validValueHit = true;
-                sb.Append($"{toSValue},");
+            var encodedKey = Uri.EscapeDataString(key);
+            
+            var sb = new StringBuilder($"{intitialValue}{encodedKey}");
+
+            var Values = (
+                from x in valuesEnum
+                let v = x?.ToString()
+                where !string.IsNullOrWhiteSpace(v)
+                select Uri.EscapeDataString(v)
+                ).ToArray();
+
+            if(Values.Length > 0) {
+                sb.Append("=");
+                sb.Append(string.Join(",", Values));
             }
-            return sb.ToString().TrimEnd(',');
+
+            return sb.ToString();
         }
     }
 }
