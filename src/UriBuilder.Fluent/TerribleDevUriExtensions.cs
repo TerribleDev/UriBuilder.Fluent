@@ -284,7 +284,7 @@ namespace System
         private static string AppendKeyValue(this string intitialValue, string key, IEnumerable<object> valuesEnum)
         {
             var encodedKey = Uri.EscapeDataString(key);
-            
+
             var sb = new StringBuilder($"{intitialValue}{encodedKey}");
 
             var Values = (
@@ -294,7 +294,8 @@ namespace System
                 select Uri.EscapeDataString(v)
                 ).ToArray();
 
-            if(Values.Length > 0) {
+            if (Values.Length > 0)
+            {
                 sb.Append("=");
                 sb.Append(string.Join(",", Values));
             }

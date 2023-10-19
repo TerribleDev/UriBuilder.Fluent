@@ -248,4 +248,5 @@ ModelManifest.xml
 coverage.opencover.xml
 coverage.json
 coverage.info
+.DS_Store
 output
