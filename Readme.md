@@ -81,3 +81,4 @@ var uri = new UriBuilder("https://awesome.com")
 ```
 
 result: `http%3A%2F%2Fawesome.com%2F%3Fyo%3Ddawg%3C`
+
